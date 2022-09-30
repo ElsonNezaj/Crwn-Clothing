@@ -51,7 +51,7 @@ class Directory extends React.Component {
 
   render() {
     return (
-      <dvi className="directory-menu">
+      <div className="directory-menu">
         {this.state.sections.map(({ title, imageUrl, id, size }) => (
           <MenuItem
             key={id}
@@ -60,7 +60,7 @@ class Directory extends React.Component {
             size={size}
           ></MenuItem>
         ))}
-      </dvi>
+      </div>
     )
   }
 }
