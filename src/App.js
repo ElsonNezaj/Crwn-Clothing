@@ -1,22 +1,25 @@
 import React from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { Route, Link, Switch } from 'react-router-dom'
 import HomePage from './pages/homepage/homepage.component'
 import './App.css'
 // const HomePage = lazy(() => import('./pages/homepage/homepage.component'))
 
-export const HatsPage = () => (
-  <div>
-    <h1>HATS PAGE</h1>
-  </div>
-)
+const HatsPage = () => {
+  return (
+    <div>
+      <Link to="/">homepage</Link>
+      <h1>HATS PAGE</h1>
+    </div>
+  )
+}
 
 function App() {
   return (
     <div>
-      <Routes>
-        <Route path="/" element={<HomePage />}></Route>
-        <Route exact path="/hats" element={<HatsPage />}></Route>
-      </Routes>
+      <Switch>
+        <Route exact path="/" component={HomePage} />
+        <Route exact path="/hats" component={HatsPage} />
+      </Switch>
     </div>
   )
 }
