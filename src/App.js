@@ -5,7 +5,7 @@ import HomePage from './pages/homepage/homepage.component'
 import ShopPage from './pages/shoppage/shop.component'
 import Header from './components/header/header.component'
 import Account from './pages/sign-in-and-sign-out/account.component'
-import { auth, onAuthStateChanged } from './firebase/firebase.utils'
+import { auth, createUserProfileDocument } from './firebase/firebase.utils'
 
 import './App.css'
 
@@ -21,10 +21,22 @@ class App extends React.Component {
   unsubscribeFromAuth = null
 
   componentDidMount() {
-    auth.onAuthStateChanged((user) => {
-      this.setState({ currentUser: user })
+    auth.onAuthStateChanged(async (userAuth) => {
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth)
 
-      console.log(user)
+        userRef.onSnapshot((snapshot) => {
+          this.setState({
+            currentUser: {
+              id: snapshot.id,
+              ...snapshot.data(),
+            },
+          })
+          console.log(this.state)
+        })
+      } else {
+        this.setState({ currentUser: userAuth })
+      }
     })
   }
 
@@ -35,7 +47,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header currentUser={this.state.currentUser} />
 
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
