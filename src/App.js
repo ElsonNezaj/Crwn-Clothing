@@ -5,7 +5,11 @@ import HomePage from './pages/homepage/homepage.component'
 import ShopPage from './pages/shoppage/shop.component'
 import Header from './components/header/header.component'
 import Account from './pages/sign-in-and-sign-out/account.component'
-import { auth, signInWithGoogle } from './firebase/firebase.utils'
+import {
+  auth,
+  signInWithGoogle,
+  createUserProfileDocument,
+} from './firebase/firebase.utils'
 import { onAuthStateChanged } from 'firebase/auth'
 
 import './App.css'
@@ -22,9 +26,11 @@ class App extends React.Component {
   unsubscribeFromAuth = null
 
   componentDidMount() {
-    this.unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async (user) => {
+      createUserProfileDocument(user)
       this.setState({ currentUser: user })
 
+      // createUserProfileDocument(user.displayName, user.email, user.uid)
       console.log(user)
     })
   }
@@ -37,6 +43,7 @@ class App extends React.Component {
     return (
       <div>
         <Header currentUser={this.state.currentUser} />
+
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route exact path="/shop" component={ShopPage} />

@@ -1,6 +1,7 @@
 import { initializeApp } from 'firebase/app'
+
 import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth'
-import { getFirestore } from 'firebase/firestore/lite'
+import { getFirestore, collection, addDoc, getDoc } from 'firebase/firestore'
 
 const config = {
   apiKey: 'AIzaSyChDIwn8oTBoWxj78QV0m4SQjVq_FlUx6o',
@@ -12,10 +13,29 @@ const config = {
   measurementId: 'G-ZN2CE5E2E7',
 }
 
-// export const firestore = firebase.firestore()
-
+// Initialize Firebase
 const app = initializeApp(config)
 export const auth = getAuth(app)
+
+// Initialize Cloud Firebase
+const db = getFirestore(app)
+
+// export const add = async (displayname, email, id) => {
+//   const docRef = await addDoc(collection(db, 'users'), {
+//     name: displayname,
+//     email: email,
+//     id: id,
+//   })
+//   console.log(docRef.id)
+// }
+
+export const createUserProfileDocument = async (userAuth, additionalData) => {
+  if (!userAuth) return
+
+  const docRef = await collection(db, `users/${userAuth.uid}`)
+  const snapShot = await getDoc(docRef)
+  console.log(snapShot)
+}
 
 export const signInWithGoogle = async () => {
   try {

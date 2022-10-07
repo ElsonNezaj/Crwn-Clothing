@@ -33,7 +33,7 @@ class Directory extends React.Component {
           id: 4,
           linkUrl: '',
           size: 'large',
-          linkUrl: 'shop/womens',
+          linkUrl: 'shop/women',
         },
         {
           title: 'mens',
@@ -42,7 +42,7 @@ class Directory extends React.Component {
           id: 5,
           linkUrl: '',
           size: 'large',
-          linkUrl: 'shop/mens',
+          linkUrl: 'shop/men',
         },
       ],
     }
