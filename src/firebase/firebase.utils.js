@@ -15,15 +15,13 @@ const config = {
 // export const firestore = firebase.firestore()
 
 const app = initializeApp(config)
-const auth = getAuth(app)
+export const auth = getAuth(app)
 
-export const signInWithGoogle = () => {
-  const provider = new GoogleAuthProvider()
-  signInWithPopup(auth, provider)
-    .then((re) => {
-      console.log(re)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+export const signInWithGoogle = async () => {
+  try {
+    const provider = await new GoogleAuthProvider()
+    const response = await signInWithPopup(auth, provider)
+  } catch (err) {
+    console.error(err)
+  }
 }
