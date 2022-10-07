@@ -1,7 +1,6 @@
-import { initializeApp } from 'firebase/app'
-
-import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth'
-import { getFirestore, collection, addDoc, getDoc } from 'firebase/firestore'
+import firebase from 'firebase/compat/app'
+import 'firebase/compat/auth' // for authentication
+import 'firebase/compat/firestore' // for db
 
 const config = {
   apiKey: 'AIzaSyChDIwn8oTBoWxj78QV0m4SQjVq_FlUx6o',
@@ -13,35 +12,16 @@ const config = {
   measurementId: 'G-ZN2CE5E2E7',
 }
 
-// Initialize Firebase
-const app = initializeApp(config)
-export const auth = getAuth(app)
+////////////////////////////////////////////
+firebase.initializeApp(config)
+////////////////////////////////////////////
 
-// Initialize Cloud Firebase
-const db = getFirestore(app)
+/**
+ * SIGN IN WITH GOOGLE
+ */
+export const auth = firebase.auth()
+export const firestore = firebase.firestore()
 
-// export const add = async (displayname, email, id) => {
-//   const docRef = await addDoc(collection(db, 'users'), {
-//     name: displayname,
-//     email: email,
-//     id: id,
-//   })
-//   console.log(docRef.id)
-// }
-
-export const createUserProfileDocument = async (userAuth, additionalData) => {
-  if (!userAuth) return
-
-  const docRef = await collection(db, `users/${userAuth.uid}`)
-  const snapShot = await getDoc(docRef)
-  console.log(snapShot)
-}
-
-export const signInWithGoogle = async () => {
-  try {
-    const provider = await new GoogleAuthProvider()
-    const response = await signInWithPopup(auth, provider)
-  } catch (err) {
-    console.error(err)
-  }
-}
+export const googleProvider = new firebase.auth.GoogleAuthProvider()
+googleProvider.setCustomParameters({ prompt: 'select_account' })
+export const signInWithGoogle = () => auth.signInWithPopup(googleProvider)
