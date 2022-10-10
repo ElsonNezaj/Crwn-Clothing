@@ -22,6 +22,7 @@ class App extends React.Component {
         const userRef = await createUserProfileDocument(userAuth)
 
         userRef.onSnapshot((snapshot) => {
+          // Vendos Current User nga te dhenat qe merr prej snapshot
           setCurrentUser({
             id: snapshot.id,
             ...snapshot.data(),
@@ -60,9 +61,11 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser,
-})
+const mapStateToProps = ({ user }) => {
+  return {
+    currentUser: user.currentUser,
+  }
+}
 
 const mapDispatachToProps = (dispatch) => {
   return {

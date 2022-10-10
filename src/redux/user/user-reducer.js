@@ -1,7 +1,5 @@
 import { UserActionTypes } from './user.types'
 
-import { setCurrentUser } from './user.actions'
-
 const INITIAL_STATE = {
   currentUser: null,
 }
