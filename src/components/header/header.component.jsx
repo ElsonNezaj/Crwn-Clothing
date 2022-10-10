@@ -1,8 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { ReactComponent as Logo } from '../../assets/crown.svg'
-import { auth, signInWithGoogle } from '../../firebase/firebase.utils'
-import { onAuthStateChanged, signOut } from 'firebase/auth'
+import { auth } from '../../firebase/firebase.utils'
 
 import './header.styles.scss'
 
