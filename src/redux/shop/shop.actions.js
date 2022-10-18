@@ -5,7 +5,7 @@ import {
 } from '../../firebase/firebase.utils'
 
 export const fetchCollectionsStart = () => ({
-  type: ShopActionTypes.UPDATE_COLLECTIONS,
+  type: ShopActionTypes.FETCH_COLLECTIONS_START,
 })
 
 export const fetchCollectionsSuccess = (collectionsMap) => ({
@@ -19,17 +19,16 @@ export const fetchCollectionsFailure = (errormsg) => ({
 })
 
 export const fetchCollectionsStartAsync = () => {
-  return (dispatch) => {
-    const collectionRef = firestore.collection('collections')
-    console.log(collectionRef)
-    dispatch(fetchCollectionsStart)
-
-    collectionRef
-      .get()
-      .then((snapshot) => {
-        const collectionsMap = convertCollectionsSnapshotToMap(snapshot)
-        dispatch(fetchCollectionsSuccess(collectionsMap))
-      })
-      .catch((err) => dispatch(fetchCollectionsFailure(err.message)))
-  }
+  // return (dispatch) => {
+  //   const collectionRef = firestore.collection('collections')
+  //   console.log(collectionRef)
+  //   dispatch(fetchCollectionsStart)
+  //   collectionRef
+  //     .get()
+  //     .then((snapshot) => {
+  //       const collectionsMap = convertCollectionsSnapshotToMap(snapshot)
+  //       dispatch(fetchCollectionsSuccess(collectionsMap))
+  //     })
+  //     .catch((err) => dispatch(fetchCollectionsFailure(err.message)))
+  // }
 }
