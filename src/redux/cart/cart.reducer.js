@@ -1,5 +1,6 @@
 import CartActionTypes from './cart.types'
 import { addItemToCart, decreseItemToCart } from './cart.utils'
+import UserActionTypes from '../user/user.types'
 
 const INITIAL_STATE = {
   hidden: true,
@@ -30,6 +31,13 @@ const cartReducer = (state = INITIAL_STATE, action) => {
         ...state,
         cartItems: decreseItemToCart(state.cartItems, action.payload),
       }
+
+    case UserActionTypes.SIGN_OUT_SUCCESS:
+      return {
+        ...state,
+        cartItems: [],
+      }
+
     default:
       return state
   }
